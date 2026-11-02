@@ -30,6 +30,8 @@ Start a new Devin session at [app.devin.ai](https://app.devin.ai) and paste this
 ```text
 Repo: https://github.com/<you>/devin-demo-android-app
 
+Follow the design skill in .agents/skills/design/SKILL.md. The result should look like a finished, polished product, not a default template.
+
 Build the tip calculator screen described in docs/specs/tip-calculator.md. Follow the repo skill in .agents/skills/android-emulator/SKILL.md to install the Android SDK, build the app and run the emulator on your machine.
 
 1. Run ./gradlew testDebugUnitTest first and show me the failing output.
