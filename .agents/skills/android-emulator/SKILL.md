@@ -1,9 +1,20 @@
 ---
 name: android-emulator
-description: Install the Android SDK on a fresh Linux machine, build TipJar, start an Android emulator, install the app, and take screenshots or a screen recording. Use for any task that builds, runs or tests this app.
+description: Create the TipJar Android project, install the Android SDK on a fresh Linux machine, build the app, start an Android emulator, install the app, and take screenshots or a screen recording. Use for any task that builds, runs or tests this app.
 ---
 
 # Build and run TipJar on an Android emulator
+
+## 0. Create the project (only if there is no `settings.gradle.kts` yet)
+
+Use these versions. They are known to build together on a Devin machine.
+
+- Kotlin + Jetpack Compose + Material 3, one module `:app`, package and application ID `com.acme.tipjar`.
+- Gradle 8.9 with the Gradle wrapper committed (`gradlew`, `gradlew.bat`, `gradle/wrapper/*`). To make the wrapper, download https://services.gradle.org/distributions/gradle-8.9-bin.zip, unzip it, and run `<unzipped>/bin/gradle wrapper --gradle-version 8.9` in the repo root.
+- Root `build.gradle.kts` plugins: `com.android.application` 8.5.2, `org.jetbrains.kotlin.android` 2.0.20 and `org.jetbrains.kotlin.plugin.compose` 2.0.20, all `apply false`.
+- `app/build.gradle.kts`: `compileSdk = 34`, `targetSdk = 34`, `minSdk = 26`, Java and `jvmTarget` 17, `buildFeatures { compose = true }`. Dependencies: `platform("androidx.compose:compose-bom:2024.09.00")`, `androidx.core:core-ktx:1.13.1`, `androidx.activity:activity-compose:1.9.2`, `androidx.compose.ui:ui`, `androidx.compose.material3:material3`, `androidx.compose.ui:ui-tooling-preview`, `debugImplementation("androidx.compose.ui:ui-tooling")`, and `testImplementation("junit:junit:4.13.2")` for plain JVM unit tests under `app/src/test`.
+- `settings.gradle.kts`: in both `pluginManagement` and `dependencyResolutionManagement`, list `google()`, then Google's mirror of Maven Central `maven("https://maven-central.storage-download.googleapis.com/maven2/")`, then `mavenCentral()` (and `gradlePluginPortal()` for plugins). Maven Central often answers HTTP 429 to shared cloud machines, and the mirror does not.
+- Add a `.gitignore` for `.gradle/`, `build/`, `local.properties` and `.idea/`.
 
 These steps work on a fresh Linux x86_64 machine with JDK 17 and `/dev/kvm`. They were checked on a Devin machine (2 CPUs, 8 GB RAM).
 
@@ -32,7 +43,7 @@ From the repo root:
 ./gradlew assembleDebug
 ```
 
-`settings.gradle.kts` lists Google's mirror of Maven Central first. Keep it: Maven Central often answers HTTP 429 to shared cloud machines.
+If a download fails with HTTP 429, check that `settings.gradle.kts` lists Google's mirror of Maven Central before `mavenCentral()`.
 
 ## 3. Start the emulator (boot about 1–2 minutes)
 
