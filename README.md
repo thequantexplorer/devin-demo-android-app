@@ -23,27 +23,8 @@ adb shell am start -n com.acme.tipjar/.MainActivity
 
 ## Current state
 
-The home screen says "Tip calculator coming soon." The tip math in `TipCalculator.kt` is not written yet, so the unit tests fail:
+The home screen is the tip calculator from [`docs/specs/tip-calculator.md`](docs/specs/tip-calculator.md): bill amount, a 15/18/20% tip choice, a people stepper, and live Tip, Total and Each person pays results. Tip math is in `TipCalculator.kt`, dollar parsing and formatting in `Money.kt`, and the green light/dark theme in `ui/theme/Theme.kt`.
 
-```text
-$ ./gradlew testDebugUnitTest
-TipCalculatorTest > tip rounds half up to the nearest cent FAILED
-    kotlin.NotImplementedError at TipCalculatorTest.kt:17
-TipCalculatorTest > zero people is rejected FAILED
-    java.lang.Exception at ExpectException.java:30
-        Caused by: kotlin.NotImplementedError at TipCalculatorTest.kt:30
-TipCalculatorTest > 15 percent of 50 dollars for one person FAILED
-    kotlin.NotImplementedError at TipCalculatorTest.kt:11
-TipCalculatorTest > split rounds each share up so the group never pays less than the total FAILED
-    kotlin.NotImplementedError at TipCalculatorTest.kt:23
-TipCalculatorTest > negative bill is rejected FAILED
-    java.lang.Exception at ExpectException.java:30
-        Caused by: kotlin.NotImplementedError at TipCalculatorTest.kt:35
-5 tests completed, 5 failed
-BUILD FAILED
-```
-
-What to build is in [`docs/specs/tip-calculator.md`](docs/specs/tip-calculator.md).
 
 ---
 
