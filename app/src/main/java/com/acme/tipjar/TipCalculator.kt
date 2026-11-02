@@ -12,6 +12,13 @@ data class TipResult(
  */
 object TipCalculator {
     fun calculate(billCents: Long, tipPercent: Int, people: Int): TipResult {
-        TODO("Not implemented yet. See docs/specs/tip-calculator.md")
+        require(billCents >= 0) { "billCents must not be negative, was $billCents" }
+        require(tipPercent >= 0) { "tipPercent must not be negative, was $tipPercent" }
+        require(people >= 1) { "people must be at least 1, was $people" }
+
+        val tipCents = (Math.multiplyExact(billCents, tipPercent.toLong()) + 50) / 100
+        val totalCents = Math.addExact(billCents, tipCents)
+        val perPersonCents = (totalCents + people - 1) / people
+        return TipResult(tipCents, totalCents, perPersonCents)
     }
 }
