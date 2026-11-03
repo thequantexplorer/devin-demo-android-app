@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TipJar</string>
+    <string name="subtitle">Split the bill</string>
+    <string name="bill_amount">Bill amount</string>
+    <string name="bill_error">Enter an amount like 42.50</string>
+    <string name="clear_bill">Clear bill amount</string>
+    <string name="tip">Tip</string>
+    <string name="people">People</string>
+    <string name="remove_person">Remove a person</string>
+    <string name="add_person">Add a person</string>
+    <string name="each_person_pays">Each person pays</string>
+    <string name="total">Total</string>
+</resources>
